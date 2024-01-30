@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import YalaUser
+
+
+# Now register the new UserAdmin...
+admin.site.register(YalaUser)

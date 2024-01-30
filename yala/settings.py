@@ -40,6 +40,12 @@ INSTALLED_APPS = [
 
     # Own apps
     'yala_users',
+    'stores',
+    'app',
+
+    # Third party apps
+    'tailwind',
+    'theme',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +130,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'yala_users.YalaUser'
+
+# Tailwind conf
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
