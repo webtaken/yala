@@ -5,4 +5,8 @@ from django.shortcuts import render
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'app/home.html')
+        return render(request, 'app/home.html', {})
+
+class LoginView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'app/login.html', {})

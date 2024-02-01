@@ -1,8 +1,9 @@
-from django.urls import include, re_path
-from .views import HomeView
+from django.urls import path
+from .views import HomeView, LoginView
 
 app_name = 'app'
 
 urlpatterns = [
-    re_path(r'', HomeView.as_view(), name='home')
+    path('', HomeView.as_view(), name='home'),
+    path('login/', LoginView.as_view(), name='login'),
 ]
