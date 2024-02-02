@@ -5,12 +5,15 @@
 
 <head>
   <title>{% block title %}Yala{% endblock %}</title>
+  <!-- DaisyUI -->
   <link href="/static/css/daisyui@4.6.1.min.css" rel="stylesheet" type="text/css" />
   <!-- Tailwind CSS -->
   {% tailwind_css %}
+  <!-- HTMX -->
+  <script src="/static/js/htmx.min.js" defer></script>
 </head>
 
-<body class="px-10 py-2 flex flex-col min-h-screen" data-theme="light">
+<body class="px-5 md:px-10 py-2 flex flex-col min-h-screen" data-theme="night">
   {% block navbar %}
   <header>
     <div class="pl-0 navbar bg-base-100">
@@ -42,7 +45,7 @@
         </ul>
       </div>
       <div class="navbar-end">
-        <a href="{% url 'app:login' %}" class="btn">Log In</a>
+        <a href="{% url 'app:login' %}" class="btn">Ingresa</a>
       </div>
     </div>
   </header>

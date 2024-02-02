@@ -10,11 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv('.env.local')
+
+# OPEN PAY CONFIG
+OPENPAY_BASE_URL = os.getenv("OPENPAY_BASE_URL", "")
+OPENPAY_COMMERCE_ID = os.getenv("OPENPAY_COMMERCE_ID", "")
+OPENPAY_PRIVATE_KEY = os.getenv("OPENPAY_PRIVATE_KEY", "")
+OPENPAY_PUBLIC_KEY = os.getenv("OPENPAY_PUBLIC_KEY", "")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -47,6 +56,7 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'django_browser_reload',
+    'django_htmx',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'yala.urls'
