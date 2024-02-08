@@ -1,31 +1,62 @@
-{% load static %}
-{% load static tailwind_tags %}
+{% load socialaccount %} {% load static %} {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>{% block title %}Yala{% endblock %}</title>
+    <!-- DaisyUI -->
+    <link
+      href="/static/css/daisyui@4.6.1.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Tailwind CSS -->
+    {% tailwind_css %}
+    <!-- HTMX -->
+    <script src="/static/js/htmx.min.js" defer></script>
+  </head>
 
-<head>
-  <title>{% block title %}Yala{% endblock %}</title>
-  <!-- DaisyUI -->
-  <link href="/static/css/daisyui@4.6.1.min.css" rel="stylesheet" type="text/css" />
-  <!-- Tailwind CSS -->
-  {% tailwind_css %}
-  <!-- HTMX -->
-  <script src="/static/js/htmx.min.js" defer></script>
-</head>
-
-<body class="px-5 md:px-10 py-2 flex flex-col min-h-screen" data-theme="night">
-  {% block navbar %}
-  <header>
-    <div class="pl-0 navbar bg-base-100">
-      <div class="navbar-start">
-        <div class="dropdown">
-          <div tabindex="0" role="button" class="btn btn-ghost md:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-            </svg>
+  <body
+    class="px-5 md:px-10 py-2 flex flex-col min-h-screen"
+    data-theme="night"
+  >
+    {% block navbar %}
+    <header>
+      <div class="pl-0 navbar bg-base-100">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost md:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li><a>Inicio</a></li>
+              <li>
+                <a>Acerca de</a>
+              </li>
+              <li><a>Precio</a></li>
+            </ul>
           </div>
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <a href="{% url 'app:home' %}" class="pl-0 font-semibold text-xl">
+            Yala
+          </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
             <li><a>Inicio</a></li>
             <li>
               <a>Acerca de</a>
@@ -33,54 +64,42 @@
             <li><a>Precio</a></li>
           </ul>
         </div>
-        <a href="{% url 'app:home' %}" class="pl-0 font-semibold text-xl">Yala</a>
+        <div class="navbar-end">
+          <a href="{% url 'account_login' %}" class="btn">Ingresa</a>
+        </div>
       </div>
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          <li><a>Inicio</a></li>
-          <li>
-            <a>Acerca de</a>
-          </li>
-          <li><a>Precio</a></li>
-        </ul>
-      </div>
-      <div class="navbar-end">
-        <a href="{% url 'app:login' %}" class="btn">Ingresa</a>
-      </div>
-    </div>
-  </header>
-  {% endblock %}
-
-  <main>
-    {% block content %}
-    <!-- page content goes here -->
+    </header>
     {% endblock %}
-  </main>
 
-  {% block footer %}
-  <footer class="mt-auto footer">
-    <nav>
-      <h6 class="footer-title">Services</h6>
-      <a class="link">Branding</a>
-      <a class="link link-hover">Design</a>
-      <a class="link link-hover">Marketing</a>
-      <a class="link link-hover">Advertisement</a>
-    </nav>
-    <nav>
-      <h6 class="footer-title">Company</h6>
-      <a class="link link-hover">About us</a>
-      <a class="link link-hover">Contact</a>
-      <a class="link link-hover">Jobs</a>
-      <a class="link link-hover">Press kit</a>
-    </nav>
-    <nav>
-      <h6 class="footer-title">Legal</h6>
-      <a class="link link-hover">Terms of use</a>
-      <a class="link link-hover">Privacy policy</a>
-      <a class="link link-hover">Cookie policy</a>
-    </nav>
-  </footer>
-  {% endblock %}
-</body>
+    <main>
+      {% block content %}
+      <!-- page content goes here -->
+      {% endblock %}
+    </main>
 
+    {% block footer %}
+    <footer class="mt-auto footer">
+      <nav>
+        <h6 class="footer-title">Services</h6>
+        <a class="link">Branding</a>
+        <a class="link link-hover">Design</a>
+        <a class="link link-hover">Marketing</a>
+        <a class="link link-hover">Advertisement</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Company</h6>
+        <a class="link link-hover">About us</a>
+        <a class="link link-hover">Contact</a>
+        <a class="link link-hover">Jobs</a>
+        <a class="link link-hover">Press kit</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Legal</h6>
+        <a class="link link-hover">Terms of use</a>
+        <a class="link link-hover">Privacy policy</a>
+        <a class="link link-hover">Cookie policy</a>
+      </nav>
+    </footer>
+    {% endblock %}
+  </body>
 </html>

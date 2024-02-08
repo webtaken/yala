@@ -48,15 +48,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Own apps
-    'yala_users',
+    # 'yala_users',
     'stores',
     'app',
 
     # Third party apps
     'tailwind',
     'theme',
+    'widget_tweaks',
     'django_browser_reload',
     'django_htmx',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +73,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
     'django_htmx.middleware.HtmxMiddleware',
 ]
 
@@ -77,7 +82,9 @@ ROOT_URLCONF = 'yala.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "templates"
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +92,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -150,7 +159,12 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'yala_users.YalaUser'
+# AUTH_USER_MODEL = 'yala_users.YalaUser'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Tailwind conf
 TAILWIND_APP_NAME = 'theme'
@@ -158,3 +172,10 @@ TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'emails'
+
+LOGIN_REDIRECT_URL = '/dashboard/'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True

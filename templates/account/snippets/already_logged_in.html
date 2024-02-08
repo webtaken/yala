@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load account %}
+{% load allauth %}
+{% user_display user as user_display %}
+{% element alert %}
+{% slot message %}
+    <p class="text-center text-sm">
+        <strong>{% blocktranslate %}Nota{% endblocktranslate %}:</strong> {% blocktranslate %}Ya ha iniciado sesión como {{ user_display }}.{% endblocktranslate %}
+    </p>
+{% endslot %}
+{% endelement %}

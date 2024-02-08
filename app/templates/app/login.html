@@ -32,41 +32,7 @@
 <div class="flex flex-col my-10 justify-center">
     <div class="mx-auto text-sm md:text-base w-full md:w-3/5">
         <h1 class="text-2xl font-bold text-center mb-5">Que bueno tenerte de vuelta</h1>
-        <form class="shadow-md rounded px-2 md:px-8 pt-4 pb-8 mb-4">
-            {% csrf_token %}
-            <div class="mb-4">
-                <label class="block text-sm font-bold mb-2" for="email">
-                    Correo electrónico
-                </label>
-                <input id="email" name="email" type="email" placeholder="Escribe tu correo"
-                    class="rounded-md input input-bordered w-full" hx-post="{% url 'app:validate-login' %}"
-                    hx-trigger="keyup changed delay:500ms" hx-target="#email-validation" />
-                <span id="email-validation" class="text-sm text-error"></span>
-            </div>
-            <div class="mb-6">
-                <label class="block text-sm font-bold mb-2" for="password">
-                    Contraseña
-                </label>
-                <input id="password" name="password" type="password" placeholder="Escribe tu contraseña"
-                    class="rounded-md input input-bordered w-full" hx-post="{% url 'app:validate-login' %}"
-                    hx-trigger="keyup changed delay:500ms" hx-target="#password-validation" />
-                <span id="password-validation" class="text-sm text-error"></span>
-            </div>
-            <div class="flex items-center justify-between">
-                <button class="btn btn-primary" type="submit">
-                    Ingresar
-                </button>
-                <div class="text-right flex flex-col">
-                    <a class="link link-primary" href="{% url 'app:register' %}">
-                        Registrarme
-                    </a>
-                    <a class="link link-primary" href="#">
-                        ¿Olvidaste tu contraseña?
-                    </a>
-                </div>
-
-            </div>
-        </form>
+        {% include 'app/partials/login_form.html' %}
         <p class="text-center text-gray-500 text-xs">
             &copy;2024 Yala. Todos los derechos reservados.
         </p>

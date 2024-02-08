@@ -1,0 +1,66 @@
+{% extends "app/layout.html" %}
+{% load i18n %}
+{% load account %}
+{% load allauth %}
+{% block title %} Yala - Confirmación {% endblock %}
+{% block navbar %}
+    <header>
+        <div class="pl-0 navbar bg-base-100">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><a>Inicio</a></li>
+                        <li>
+                            <a>Acerca de</a>
+                        </li>
+                        <li><a>Precio</a></li>
+                    </ul>
+                </div>
+                <a href="{% url 'app:home' %}" class="pl-0 font-semibold text-xl">Yala</a>
+            </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center text-2xl font-semibold">
+        {% trans "Verifica tu cuenta" %}
+    </h1>
+    {% if confirmation %}
+        {% user_display confirmation.email_address.user as user_display %}
+        {% if can_confirm %}
+            <p class="text-center mb-4">
+                {% blocktrans with confirmation.email_address.email as email %}Porfavor confirma que el e-mail <a href="mailto:{{ email }}" class="link">{{ email }}</a> es del usuario <span class="font-bold">{{ user_display }}</span>.{% endblocktrans %}
+            </p>
+            <div class="flex justify-center">
+                {% url 'account_confirm_email' confirmation.key as action_url %}
+                {% element form method="post" action=action_url %}
+                    {% slot actions %}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">
+                            {% trans 'Confirmar' %}
+                        </button>
+                    {% endslot %}
+                {% endelement %}
+            </div>
+        {% else %}
+            <p class="text-center">
+                {% blocktrans %}El correo {{ email }} ya fue confirmado por otra cuenta.{% endblocktrans %}
+            </p>
+        {% endif %}
+    {% else %}
+        {% url 'account_email' as email_url %}
+        <p class="text-center">
+            {% blocktrans %}Link de confirmación expirado o inválido.{% endblocktrans %} 
+            {% comment %} Solicita una nueva <a href="{{ email_url }}" class="link">confirmación de correo</a>. {% endcomment %}
+            <br/>
+            <a href="{% url 'app:home' %}" class="text-center btn btn-primary">Regresar a Yala</a>
+        </p>
+    {% endif %}
+{% endblock content %}

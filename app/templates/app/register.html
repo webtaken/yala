@@ -31,14 +31,14 @@
 {% block content %}
 <div class="flex flex-col my-10 justify-center">
     <div class="mx-auto w-full md:w-3/5">
-        <h1 class="text-2xl font-bold text-center mb-3">Bienvenido a bordo emprendedor!</h1>
+        <h1 class="text-2xl font-bold text-center mb-2">Bienvenido a bordo emprendedor!</h1>
         <form class="shadow-md rounded px-2 md:px-8 pt-2 pb-8 mb-2">
             <div class="mb-2">
                 <label class="block text-sm font-bold mb-2" for="email">
                     E-mail
                 </label>
                 <input id="email" type="email" placeholder="Escribe tu e-mail"
-                    class="rounded-md text-sm input input-sm input-bordered w-full" />
+                    class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
             </div>
             <div class="flex items-center gap-x-2">
                 <div class="mb-2 w-full">
@@ -46,14 +46,14 @@
                         Nombres
                     </label>
                     <input id="firstname" type="text" placeholder="Tus nombres"
-                        class="rounded-md text-sm input input-sm input-bordered w-full" />
+                        class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
                 </div>
                 <div class="mb-2 w-full">
                     <label class="block text-sm font-bold mb-2" for="lastname">
                         Apellidos
                     </label>
                     <input id="lastname" type="text" placeholder="Tus apellidos"
-                        class="rounded-md text-sm input input-sm input-bordered w-full" />
+                        class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-x-2">
@@ -62,14 +62,13 @@
                         DNI
                     </label>
                     <input id="dni" type="text" placeholder="Tu DNI"
-                        class="rounded-md text-sm input input-sm input-bordered w-full" />
+                        class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
                 </div>
                 <div class="mb-2 w-full">
                     <label class="block text-sm font-bold mb-2" for="lastname">
                         Fecha de nacimiento
                     </label>
-                    <input id="date_of_birth" type="date"
-                        class="rounded-md text-sm input input-sm input-bordered w-full" />
+                    <input id="date_of_birth" type="date" class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
                 </div>
             </div>
             <div class="mb-2">
@@ -77,27 +76,27 @@
                     Nro. de Celular
                 </label>
                 <input id="cellphone" type="tel" placeholder="Tu número de celular"
-                    class="rounded-md text-sm input input-sm input-bordered w-full" />
+                    class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
             </div>
             <div class="mb-2">
-                <label class="block text-sm font-bold mb-2" for="password">
+                <label class="block text-sm font-bold mb-2" for="password1">
                     Contraseña
                 </label>
-                <input id="password" type="password" placeholder="Escribe tu contraseña"
-                    class="rounded-md text-sm input input-sm input-bordered w-full" />
+                <input id="password1" type="password" placeholder="Escribe tu contraseña"
+                    class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
             </div>
             <div class="mb-4">
-                <label class="block text-sm font-bold mb-2" for="password">
+                <label class="block text-sm font-bold mb-2" for="password2">
                     Repetir Contraseña
                 </label>
-                <input id="password" type="password" placeholder="Escribe tu contraseña de nuevo"
-                    class="rounded-md text-sm input input-sm input-bordered w-full" />
+                <input id="password2" type="password" placeholder="Escribe tu contraseña de nuevo"
+                    class="rounded-md text-sm text-slate-700 input input-bordered w-full" />
             </div>
             <div class="flex items-center justify-between">
                 <button class="btn btn-primary" type="submit">
                     Registrarme
                 </button>
-                <a class="link link-primary" href="#">
+                <a class="link link-primary" href="{% url 'account_login' %}">
                     Ingresar
                 </a>
             </div>

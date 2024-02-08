@@ -1,0 +1,58 @@
+<form
+  class="shadow-md rounded px-2 md:px-8 pt-4 pb-8 mb-4"
+  hx-post="{% url 'app:user-login' %}"
+  hx-target="this"
+  hx-swap="outerHTML"
+>
+  {% csrf_token %}
+  <div class="mb-4">
+    <label class="block text-sm font-bold mb-2" for="email">
+      Correo electrónico
+    </label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      placeholder="Escribe tu correo"
+      class="rounded-md text-slate-700 text-sm input input-bordered w-full"
+      hx-post="{% url 'app:validate-login' %}?field=email"
+      hx-trigger="keyup changed delay:500ms"
+      hx-target="#email-validation"
+      hx-swap="innerHTML"
+    />
+    <span id="email-validation" class="text-sm text-error"
+      >{{ email_validation|join:"<br />" }}</span
+    >
+  </div>
+  <div class="mb-4">
+    <label class="block text-sm font-bold mb-2" for="password">
+      Contraseña
+    </label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      placeholder="Escribe tu contraseña"
+      class="rounded-md text-slate-700 text-sm input input-bordered w-full"
+      hx-post="{% url 'app:validate-login' %}?field=password"
+      hx-trigger="keyup changed delay:500ms"
+      hx-target="#password-validation"
+      hx-swap="innerHTML"
+    />
+    <span id="password-validation" class="text-sm text-error"
+      >{{ password_validation|join:"<br />" }}</span
+    >
+  </div>
+  <span id="form-errors" class="text-sm text-error"
+    >{{ form_errors|join:"<br />" }}</span
+  >
+  <div class="flex items-center justify-between">
+    <button class="btn btn-primary" type="submit">Ingresar</button>
+    <div class="text-right flex flex-col">
+      <a class="link link-primary" href="{% url 'app:register' %}">
+        Registrarme
+      </a>
+      <a class="link link-primary" href="#"> ¿Olvidaste tu contraseña? </a>
+    </div>
+  </div>
+</form>
