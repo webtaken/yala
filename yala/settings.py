@@ -10,11 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv('.env.local')
+
+# OPEN PAY CONFIG
+OPENPAY_BASE_URL = os.getenv("OPENPAY_BASE_URL", "")
+OPENPAY_COMMERCE_ID = os.getenv("OPENPAY_COMMERCE_ID", "")
+OPENPAY_PRIVATE_KEY = os.getenv("OPENPAY_PRIVATE_KEY", "")
+OPENPAY_PUBLIC_KEY = os.getenv("OPENPAY_PUBLIC_KEY", "")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -39,14 +48,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Own apps
-    'yala_users',
+    # 'yala_users',
     'stores',
     'app',
 
     # Third party apps
     'tailwind',
     'theme',
+    'widget_tweaks',
     'django_browser_reload',
+    'django_htmx',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +73,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'yala.urls'
@@ -66,7 +82,9 @@ ROOT_URLCONF = 'yala.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "templates"
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,6 +92,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -139,7 +159,12 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'yala_users.YalaUser'
+# AUTH_USER_MODEL = 'yala_users.YalaUser'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Tailwind conf
 TAILWIND_APP_NAME = 'theme'
@@ -147,3 +172,15 @@ TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST', '')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "Soporte de Yala"
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+
+LOGIN_REDIRECT_URL = '/dashboard/'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
