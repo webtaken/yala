@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Own apps
-    # 'yala_users',
+    'yala_users',
     'stores',
     'app',
 
